@@ -71,11 +71,11 @@ void initWiFi()
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED)
+  /*while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print('.');
     delay(1000);
-  }
+  }*/
   Serial.println(WiFi.localIP());
 }
 
@@ -89,7 +89,7 @@ void rootPage()
 
 // WiFi ve PubSubClient Ataması
 // const char* mqtt_server = "69683d8507ae4b5fa28675479aaf4fcf.s1.eu.hivemq.cloud"; // replace with your broker url
-#define BROKER_ADDR IPAddress(192, 168, 1, 200)
+//#define BROKER_ADDR IPAddress(192, 168, 1, 200)
 const char *mqtt_server = "192.168.1.200"; //"mqtt://10.211.55.8";
 const char *mqtt_username = "mqttuser";
 const char *mqtt_password = "12345";
@@ -120,7 +120,7 @@ const char *modem_on_off_topic = "aha/deedba6efeeb/modem_on_off/stat_t";
 bool alarm_durum = false;
 bool kapi_durum = false;
 bool kilit_durum = false;
-bool modem_on_off_durum = true;
+bool modem_on_off_durum = false;
 
 Servo myservo;
 int pos = 0;
@@ -305,7 +305,10 @@ bool getID()
   Serial.print("  =>>Card scanned: ");
   Serial.println(tag);
 
-  scanner.tagScanned(tag); // let the HA know about the scanned tag
+  if (modem_on_off_durum)
+  {
+    scanner.tagScanned(tag); // let the HA know about the scanned tag
+  }
   // mfrc522.PICC_HaltA();    // Stop reading
   lastTagScannedAt = millis();
   return true;
