@@ -20,7 +20,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 // #include <WebServer.h>
-#include <AutoConnect.h>
+//#include <AutoConnect.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <EEPROM.h> // We are going to read and write PICC's UIDs from/to EEPROM

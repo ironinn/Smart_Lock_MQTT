@@ -185,102 +185,20 @@
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WiFi/src/WiFiUdp.h \
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/cores/esp32/Udp.h \
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/cores/esp32/cbuf.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnect.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WebServer/src/WebServer.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WebServer/src/HTTP_Method.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/nghttp/port/include/http_parser.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WebServer/src/Uri.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WebServer/src/detail/RequestHandler.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/DNSServer/src/DNSServer.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WiFi/src/WiFiUdp.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/EEPROM/src/EEPROM.h \
- .pio/libdeps/esp32doit-devkit-v1/PageBuilder/src/PageBuilder.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/FS/src/FS.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/SPIFFS/src/SPIFFS.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectDefs.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectTypes.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectPage.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectLabels.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectCredential.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_wifi.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_wifi_types.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_private/esp_wifi_private.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_wifi_crypto_types.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_private/wifi_os_adapter.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_wifi/include/esp_wifi_default.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/Preferences/src/Preferences.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/nvs_flash/include/nvs.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectTicker.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/Ticker/src/Ticker.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectAux.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectElement.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectElementBasis.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectUpload.h \
- .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson.h \
- .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson.hpp \
- .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson/Configuration.hpp \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectElementJson.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectJsonDefs.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectOTA.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnect.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectFS.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/spiffs/include/esp_spiffs.h \
- .pio/libdeps/esp32doit-devkit-v1/AutoConnect/src/AutoConnectUpdate.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/HTTPClient/src/HTTPClient.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WiFi/src/WiFiClient.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WiFiClientSecure/src/WiFiClientSecure.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/WiFiClientSecure/src/ssl_client.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/platform.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/mbedtls/esp_config.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/config.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/check_config.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/esp_mem.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/platform_time.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/net.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/net_sockets.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ssl.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/mbedtls/bignum.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/bignum.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ecp.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ssl_ciphersuites.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/pk.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/md.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/platform_util.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/rsa.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ecdsa.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/cipher.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/x509_crt.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/x509.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/asn1.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/x509_crl.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/dhm.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ecdh.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/debug.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/entropy.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/sha512.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/sha512_alt.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/hal/include/hal/sha_types.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_rom/include/esp32/rom/sha.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/ctr_drbg.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/aes.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/aes_alt.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/port/include/aes/esp_aes.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/hal/include/hal/aes_types.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/mbedtls/mbedtls/include/mbedtls/error.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/HTTPUpdate/src/HTTPUpdate.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/Update/src/Update.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/cores/esp32/MD5Builder.h \
- /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/tools/sdk/esp32/include/esp_rom/include/esp_rom_md5.h \
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/SPI/src/SPI.h \
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/cores/esp32/esp32-hal-spi.h \
  .pio/libdeps/esp32doit-devkit-v1/MFRC522/src/MFRC522.h \
  .pio/libdeps/esp32doit-devkit-v1/MFRC522/src/require_cpp11.h \
  .pio/libdeps/esp32doit-devkit-v1/MFRC522/src/deprecated.h \
+ /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/libraries/EEPROM/src/EEPROM.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/ESP32Servo.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/analogWrite.h \
  /Users/nebahatdemirhan/.platformio/packages/framework-arduinoespressif32@src-ff52d3cf1d8225c293db2dd0ae5dec0d/cores/esp32/esp32-hal-ledc.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/ESP32PWM.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/ESP32Tone.h \
+ .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson.h \
+ .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson.hpp \
+ .pio/libdeps/esp32doit-devkit-v1/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  .pio/libdeps/esp32doit-devkit-v1/home-assistant-integration/src/ArduinoHA.h \
  .pio/libdeps/esp32doit-devkit-v1/home-assistant-integration/src/HADevice.h \
  .pio/libdeps/esp32doit-devkit-v1/home-assistant-integration/src/HAMqtt.h \
