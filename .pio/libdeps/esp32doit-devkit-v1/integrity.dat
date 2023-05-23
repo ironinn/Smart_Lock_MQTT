@@ -1,5 +1,5 @@
 bblanchon/ArduinoJson@^6.19.4
-madhephaestus/ESP32Servo@^0.11.0
 miguelbalboa/MFRC522@^1.4.10
 arduino-libraries/NTPClient@^3.2.1
+madhephaestus/ESP32Servo@^0.11.0
 dawidchyrzynski/home-assistant-integration@^2.0.0

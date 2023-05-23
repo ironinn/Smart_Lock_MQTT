@@ -20,7 +20,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 // #include <WebServer.h>
-//#include <AutoConnect.h>
+#include <PubSubClient.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <EEPROM.h> // We are going to read and write PICC's UIDs from/to EEPROM
@@ -59,9 +59,6 @@ unsigned long lastMsg3 = 0; // millis kontrol tanımı
 
 unsigned long lastTagScannedAt = 0;
 
-WebServer Server;
-// AutoConnect Portal(Server);
-AutoConnectConfig Config; // Enable autoReconnect supported on v0.9.4
 
 const char *ssid = "Zyxel_2AC1";
 const char *password = "7v5WGEdz2.";
@@ -70,26 +67,25 @@ void initWiFi()
 {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi ..");
-  /*while (WiFi.status() != WL_CONNECTED)
+
+  while (WiFi.status() != WL_CONNECTED)
   {
-    Serial.print('.');
-    delay(1000);
-  }*/
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
 
-void rootPage()
-{
-  char content[] = "Merhaba Dunya";
-  Server.send(200, "text/plain", content);
-}
 
 // AUTOCONNECT SETUP END
 
 // WiFi ve PubSubClient Ataması
 // const char* mqtt_server = "69683d8507ae4b5fa28675479aaf4fcf.s1.eu.hivemq.cloud"; // replace with your broker url
-//#define BROKER_ADDR IPAddress(192, 168, 1, 200)
+// #define BROKER_ADDR IPAddress(192, 168, 1, 200)
 const char *mqtt_server = "192.168.1.200"; //"mqtt://10.211.55.8";
 const char *mqtt_username = "mqttuser";
 const char *mqtt_password = "12345";
@@ -99,7 +95,7 @@ byte mac[] = {0x00, 0x10, 0xFA, 0x6E, 0x38, 0x4E};
 WiFiClient client;
 HADevice device; //(mac, sizeof(mac));
 HAMqtt mqtt(client, device);
-HATagScanner scanner("myscanner");
+HATagScanner scanner("myscanner"); 
 HALock lock("myLock");
 
 const char *alarm_durum_topic = "alarmo/state"; //
@@ -597,16 +593,7 @@ void setup()
   mfrc522.PCD_Init();
   mfrc522.PCD_DumpVersionToSerial();
 
-  // Enable saved past credential by autoReconnect option,
-  // even once it is disconnected.
-  Config.autoReconnect = true;
-  Config.hostName = "ESP32-Kilit";
 
-  // Portal.config(Config);
-
-  // Behavior a root path of ESP8266WebServer.
-  Server.on("/", rootPage);
-  Server.begin(); /// Portal.begin()
   Serial.println("WiFi connected: " + WiFi.localIP().toString());
 
   //=======================PİN AYARLARI====================
@@ -703,7 +690,6 @@ void loop()
   unsigned long now = millis();
   successfulRead = getID();
   // Do nothing. Everything is done in another task by the web server
-  Server.handleClient();
   if (message != "")
   {
     Serial.print("Message: ");
