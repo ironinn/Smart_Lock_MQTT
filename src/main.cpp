@@ -30,20 +30,19 @@
 #include <ArduinoHA.h>
 // #define COMMON_ANODE
 
-#define wipeB 3 // Button pin for Wipeode
-//!!!!!!!!!!!!! Bu butona basıldığında Master kart silme işlemleri gerçekleştiriliyor.
-#define SS_PIN 5   // ESP32 pin GIOP5
-#define RST_PIN 27 // ESP32 pin GIOP27
+#define wipeB 3    // Buton =>Bu butona basıldığında Master kart silme işlemleri gerçekleştiriliyor.
+#define SS_PIN 5   // ESP32 pin GIOP5 => Kart Okuyucu için kullanılacak
+#define RST_PIN 27 // ESP32 pin GIOP27 => Kart Okuyucu için kullanılacak.
 #define SCAN_INTERVAL 5000
 #define EEPROM_SIZE 512
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-#define redLed 22 // led_pinleri
-#define greenLed 25
-#define blueLed 26
+#define sari_led 32 // Alarm LED
+#define greenLed 25 // Alarm LED
+#define blueLed 26  // Alarm LED
 
-#define esp32_alarm_on_off_pin 32
-#define SERVO_PIN 33
+#define esp32_alarm_on_off_pin 22 // MEGA ile ESP arasından alarmın durumunu öğrenmek için kullanılacak.
+#define SERVO_PIN 33              // Kapı Motorunu çalıştıracak.
 // #define COMMON_ANODE
 
 #ifdef COMMON_ANODE
@@ -56,30 +55,32 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 unsigned long lastMsg = 0;  // millis kontrol tanımı
 unsigned long lastMsg2 = 0; // millis kontrol tanımı
 unsigned long lastMsg3 = 0; // millis kontrol tanımı
+unsigned long previous_time = 0;
+unsigned long delayy = 20000; // 20 seconds delay
 
 unsigned long lastTagScannedAt = 0;
 
-
-const char *ssid = "Zyxel_2AC1";
-const char *password = "7v5WGEdz2.";
+const char *ssid = "Zyxel_29D1";
+const char *password = "4YKKX3QY4F";
 
 void initWiFi()
 {
+  delay(2500);
   WiFi.mode(WIFI_STA);
+  delay(2000);
   WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
-
+  Serial.println("\nConnecting");
+  /*
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      Serial.print(".");
+      delay(100);
+    }*/
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
-
 
 // AUTOCONNECT SETUP END
 
@@ -95,13 +96,14 @@ byte mac[] = {0x00, 0x10, 0xFA, 0x6E, 0x38, 0x4E};
 WiFiClient client;
 HADevice device; //(mac, sizeof(mac));
 HAMqtt mqtt(client, device);
-HATagScanner scanner("myscanner"); 
+HATagScanner scanner("myscanner");
 HALock lock("myLock");
 
 const char *alarm_durum_topic = "alarmo/state"; //
 const char *alarmed_home = "armed_home";
 const char *alarmed_away = "armed_away";
 const char *alarm_disabled = "disarmed";
+const char *alarm_triggered = "triggered";
 
 const char *alarm_command = "alarmo/command";
 const char *alarm_home = "arm_home";
@@ -114,6 +116,7 @@ const char *readed_card_topic = "sensor/readed_card";
 const char *modem_on_off_topic = "aha/deedba6efeeb/modem_on_off/stat_t";
 
 bool alarm_durum = false;
+bool alarm_tetiklendi = false;
 bool kapi_durum = false;
 bool kilit_durum = false;
 bool modem_on_off_durum = false;
@@ -138,17 +141,32 @@ byte readedCard[4]; // Stores scanned ID read from RFID Module
 byte masterCard[4]; // Stores master card's ID read from EEPROM
 
 //////////////////////////////////  Alarm Işıklandırma   ///////////////////////////////////
+void alarmTriggered()
+{
+  // Make sure green LED is on
+  for (size_t i = 0; i < 5; i++)
+  {
+    digitalWrite(greenLed, ON_LED); // Make sure green LED is on
+    delay(20);
+    digitalWrite(greenLed, OFF_LED);
+    delay(20);
+    digitalWrite(blueLed, ON_LED); // Make sure green LED is on
+    delay(20);
+    digitalWrite(blueLed, OFF_LED);
+    delay(20);
+  }
+}
 void cycleLeds()
 {
-  digitalWrite(redLed, OFF_LED);  // Make sure red LED is off
-  digitalWrite(greenLed, ON_LED); // Make sure green LED is on
-  digitalWrite(blueLed, OFF_LED); // Make sure blue LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
+  digitalWrite(greenLed, ON_LED);  // Make sure green LED is on
+  digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
   delay(200);
-  digitalWrite(redLed, OFF_LED);   // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
   digitalWrite(blueLed, ON_LED);   // Make sure blue LED is on
   delay(200);
-  digitalWrite(redLed, ON_LED);    // Make sure red LED is on
+  digitalWrite(sari_led, ON_LED);  // Make sure red LED is on
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
   digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
   delay(200);
@@ -156,8 +174,8 @@ void cycleLeds()
 //////////////////////////////////////// Normal Mode Led  ///////////////////////////////////
 void normalModeOn()
 {
-  digitalWrite(blueLed, ON_LED);   // Blue LED ON and ready to read card
-  digitalWrite(redLed, OFF_LED);   // Make sure Red LED is off
+  digitalWrite(blueLed, OFF_LED);  // Blue LED ON and ready to read card
+  digitalWrite(sari_led, OFF_LED); // Make sure Red LED is off
   digitalWrite(greenLed, OFF_LED); // Make sure Green LED is off
   // digitalWrite(relay, HIGH); 		// Make sure Door is Locked
 }
@@ -197,27 +215,41 @@ void kapi_ac()
 /////////////////////////////////////////  Yetki Verildi.    ///////////////////////////////////
 void granted(int setDelay)
 {
-  digitalWrite(blueLed, OFF_LED); // Turn off blue LED
-  digitalWrite(redLed, OFF_LED);  // Turn off red LED
-  digitalWrite(greenLed, ON_LED); // Turn on green LED
+  digitalWrite(blueLed, ON_LED);   // Turn off blue LED
+  digitalWrite(sari_led, OFF_LED); // Turn off red LED
+  digitalWrite(greenLed, ON_LED);  // Turn on green LED
   // digitalWrite(relay, LOW); 		// Unlock door!
   // delay(setDelay); 					// Hold door lock open for given seconds
   // digitalWrite(relay, HIGH); 		// Relock door
-  delay(1000); // Hold green LED on for a second
+  delay(1000);                     // Hold green LED on for a second
+  digitalWrite(blueLed, OFF_LED);  // Turn off blue LED
+  digitalWrite(sari_led, OFF_LED); // Turn off red LED
+  digitalWrite(greenLed, OFF_LED); // Turn on green LED
 }
 ///////////////////////////////////////// Yetkisiz Giriş  ///////////////////////////////////
 void denied()
 {
+  digitalWrite(greenLed, ON_LED); // Make sure green LED is off
+  digitalWrite(blueLed, ON_LED);  // Make sure blue LED is off
+  digitalWrite(sari_led, ON_LED); // Turn on red LED
+  delay(100);
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
   digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
-  digitalWrite(redLed, ON_LED);    // Turn on red LED
-  delay(1000);
+  digitalWrite(sari_led, OFF_LED); // Turn on red LED
+  delay(100);
+  digitalWrite(greenLed, ON_LED); // Make sure green LED is off
+  digitalWrite(blueLed, ON_LED);  // Make sure blue LED is off
+  digitalWrite(sari_led, ON_LED); // Turn on red LED
+  delay(100);
+  digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
+  digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
+  digitalWrite(sari_led, OFF_LED); // Turn on red LED
 }
 // Flashes the green LED 3 times to indicate a successful write to EEPROM
 void successWrite()
 {
   digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
-  digitalWrite(redLed, OFF_LED);   // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is on
   delay(200);
   digitalWrite(greenLed, ON_LED); // Make sure green LED is on
@@ -236,18 +268,18 @@ void successWrite()
 void failedWrite()
 {
   digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
-  digitalWrite(redLed, OFF_LED);   // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
   delay(200);
-  digitalWrite(redLed, ON_LED); // Make sure red LED is on
+  digitalWrite(sari_led, ON_LED); // Make sure red LED is on
   delay(200);
-  digitalWrite(redLed, OFF_LED); // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   delay(200);
-  digitalWrite(redLed, ON_LED); // Make sure red LED is on
+  digitalWrite(sari_led, ON_LED); // Make sure red LED is on
   delay(200);
-  digitalWrite(redLed, OFF_LED); // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   delay(200);
-  digitalWrite(redLed, ON_LED); // Make sure red LED is on
+  digitalWrite(sari_led, ON_LED); // Make sure red LED is on
   delay(200);
 }
 ///////////////////////////////////////// Success Remove UID From EEPROM  ///////////////////////////////////
@@ -255,7 +287,7 @@ void failedWrite()
 void successDelete()
 {
   digitalWrite(blueLed, OFF_LED);  // Make sure blue LED is off
-  digitalWrite(redLed, OFF_LED);   // Make sure red LED is off
+  digitalWrite(sari_led, OFF_LED); // Make sure red LED is off
   digitalWrite(greenLed, OFF_LED); // Make sure green LED is off
   delay(200);
   digitalWrite(blueLed, ON_LED); // Make sure blue LED is on
@@ -474,16 +506,22 @@ void onMessage(const char *topic, const uint8_t *payload, uint16_t length)
 
   if (strcmp(topic, alarm_durum_topic) == 0)
   {
-    if (message != alarm_disabled)
+    if (message == alarmed_away || message == alarmed_home)
     {
       Serial.print("Alarm Kuruldu.=> Alarm Durum: ");
       alarm_durum = 1;
       Serial.println(alarm_durum);
+      alarm_tetiklendi = false;
     }
     else if (message == alarm_disabled)
     {
       Serial.println("Alarm Kapatıldı.");
       alarm_durum = 0;
+      alarm_tetiklendi = false;
+    }
+    else if (message == alarm_triggered)
+    {
+      alarm_tetiklendi = true;
     }
   }
   if (strcmp(topic, kapi_durum_topic) == 0)
@@ -593,17 +631,16 @@ void setup()
   mfrc522.PCD_Init();
   mfrc522.PCD_DumpVersionToSerial();
 
-
   Serial.println("WiFi connected: " + WiFi.localIP().toString());
 
   //=======================PİN AYARLARI====================
   pinMode(esp32_alarm_on_off_pin, OUTPUT);
-  pinMode(redLed, OUTPUT);
+  pinMode(sari_led, OUTPUT);
   pinMode(greenLed, OUTPUT);
   pinMode(blueLed, OUTPUT);
   pinMode(wipeB, INPUT_PULLUP);
   digitalWrite(esp32_alarm_on_off_pin, OFF_LED);
-  digitalWrite(redLed, OFF_LED);   // Make sure led is off
+  digitalWrite(sari_led, OFF_LED); // Make sure led is off
   digitalWrite(greenLed, OFF_LED); // Make sure led is off
   digitalWrite(blueLed, OFF_LED);  // Make sure led is off //
 
@@ -616,8 +653,8 @@ void setup()
 
   //================   İLK KURULUMDA RFID KART TANIMLAMA KODLARI  ===============================
   if (digitalRead(wipeB) == LOW)
-  {                               // when button pressed pin should get low, button connected to ground
-    digitalWrite(redLed, ON_LED); // Sıfırlama işlemine kadar Kırmızı Led yanık kalacak.
+  {                                 // when button pressed pin should get low, button connected to ground
+    digitalWrite(sari_led, ON_LED); // Sıfırlama işlemine kadar Kırmızı Led yanık kalacak.
     Serial.println(F("Wipe Button Pressed"));
     Serial.println(F("You have 15 seconds to Cancel"));
     Serial.println(F("This will be remove all records and cannot be undone"));
@@ -643,7 +680,7 @@ void setup()
     else
     {
       Serial.println(F("Wiping Cancelled"));
-      digitalWrite(redLed, OFF_LED);
+      digitalWrite(sari_led, OFF_LED);
     }
   }
 
@@ -687,8 +724,21 @@ void setup()
 
 void loop()
 {
+
+  unsigned long current_time = millis(); // number of milliseconds since the upload
+
+  // checking for WIFI connection
+  if ((WiFi.status() != WL_CONNECTED) && (current_time - previous_time >= delayy))
+  {
+    Serial.print(millis());
+    Serial.println("Reconnecting to WIFI network");
+    WiFi.disconnect();
+    WiFi.reconnect();
+    previous_time = current_time;
+  }
   unsigned long now = millis();
   successfulRead = getID();
+
   // Do nothing. Everything is done in another task by the web server
   if (message != "")
   {
@@ -701,8 +751,19 @@ void loop()
     Serial.print(modem_on_off_durum);
     Serial.print(" => Alarm Durumu: ");
     Serial.print(alarm_durum);
+    Serial.print(" => Alarm Tetik: ");
+    Serial.print(alarm_tetiklendi);
     Serial.print(" => Kilit Durum: ");
     Serial.println(kilit_durum);
+    if (alarm_durum)
+    {
+      cycleLeds();
+    }
+    if (alarm_tetiklendi)
+    {
+      alarmTriggered();
+    }
+
     lastMsg3 = now;
   }
   {
@@ -728,8 +789,8 @@ void loop()
     {
       if (isMaster(readedCard))
       { // Eğer Master Kart Okutulur ise programlama modundan çıkılıyor.
-        Serial.println(F("Master Card Scanned"));
-        Serial.println(F("Exiting Program Mode"));
+        Serial.println(F("Ana Kart Okutuldu"));
+        Serial.println(F("Programlama Modundan ÇIKILIYOR..."));
         Serial.println(F("-----------------------------"));
         programMode = false;
         return;
@@ -738,18 +799,18 @@ void loop()
       {
         if (findID(readedCard)) // Programlama modunda master kart dışında bir kart okutulursa o kart silinir.
         {
-          Serial.println(F("I know this PICC, removing..."));
+          Serial.println(F("Tanımlı Kart, Siliniyor..."));
           deleteID(readedCard);
           Serial.println("-----------------------------");
-          Serial.println(F("Scan a PICC to ADD or REMOVE to EEPROM"));
+          Serial.println(F("Kart Eklemek ve Silmek için KART OKUTT"));
         }
         else // Eğer tanımsız bir kart eklenirse tanımlama işlemi gerçekleştirilir.
         {    //
-          Serial.println(F("I do not know this PICC, adding..."));
+          Serial.println(F("Okutulan Kart Tanımlı Değil EKLENİYOR"));
           writeID(readedCard);
           // add_card_yetki(readedCard);
           Serial.println(F("-----------------------------"));
-          Serial.println(F("Scan a PICC to ADD or REMOVE to EEPROM"));
+          Serial.println(F("KART Eklemek İçin KART OKUT"));
         }
       }
     }
@@ -785,6 +846,8 @@ void loop()
             kilit_ac();
             if (alarm_durum != 0)
             {
+              alarm_durum = false;
+              alarm_tetiklendi = false;
               // alarm_on_off(alarm_disable); // Alarm panelinde alarmı aktif ediyor.
             }
           }
@@ -794,7 +857,7 @@ void loop()
             if (modem_on_off_durum == false && alarm_durum == false)
             {
               Serial.println("Modem Kapalı Kablo üzerin MEGA'ya Alarm AÇ Gönderildi.");
-              digitalWrite(esp32_alarm_on_off_pin, ON_LED); //
+              digitalWrite(esp32_alarm_on_off_pin, ON_LED); // Burada Sorun Olabilir
               alarm_durum = true;
             }
             if (alarm_durum == 0)
